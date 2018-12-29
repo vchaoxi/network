@@ -35,7 +35,7 @@
   * [3.4.通过交换机组网](chapter3.4.md)
   * [3.5.通过路由器组网](chapter3.5.md)
   * [3.6.交换机、路由器、服务器组网](chapter3.6.md)
-  * [3.7.tcp三次挥手](chapter3.7.md)
+  * [3.7.tcp三次握手](chapter3.7.md)
   * [3.8.tcp四次挥手](chapter3.8.md)
   * [3.9.tcp十种状态](chapter3.9.md)
   * [3.10.tcp的2MSL问题](chapter3.10.md)
