@@ -121,7 +121,7 @@ def myDownLoad(url):
 
 gevent.joinall([
         gevent.spawn(myDownLoad, 'http://www.baidu.com/'),
-        gevent.spawn(myDownLoad, 'http://www.vchaoxi.cn/'),
+        gevent.spawn(myDownLoad, 'http://www.vchaoxi.com/'),
         gevent.spawn(myDownLoad, 'http://www.itheima.com/'),
 ])
 
@@ -132,11 +132,11 @@ gevent.joinall([
 ```python
 
 GET: http://www.baidu.com/
-GET: http://www.vchaoxi.cn/
+GET: http://www.vchaoxi.com/
 GET: http://www.itheima.com/
 102247 bytes received from http://www.baidu.com/.
 166903 bytes received from http://www.itheima.com/.
-162294 bytes received from http://www.vchaoxi.cn/.
+162294 bytes received from http://www.vchaoxi.com/.
 
 ```
 
