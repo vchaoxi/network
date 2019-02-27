@@ -17,6 +17,6 @@ Packet Tracer 是由Cisco(著名网络公司，思科)公司发布的一个辅�
 ![](/assets/Snip20160904_10.png)
 
 学习网通信过程的重要性
-在浏览器中输入 www.itcast.cn后，访问的整个过程有哪些？
+在浏览器中输入 www.vchaoxi.cn后，访问的整个过程有哪些？
 
 ![](/assets/02-就业班-02-21.jpg)

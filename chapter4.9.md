@@ -121,7 +121,7 @@ def myDownLoad(url):
 
 gevent.joinall([
         gevent.spawn(myDownLoad, 'http://www.baidu.com/'),
-        gevent.spawn(myDownLoad, 'http://www.itcast.cn/'),
+        gevent.spawn(myDownLoad, 'http://www.vchaoxi.cn/'),
         gevent.spawn(myDownLoad, 'http://www.itheima.com/'),
 ])
 
@@ -132,12 +132,12 @@ gevent.joinall([
 ```python
 
 GET: http://www.baidu.com/
-GET: http://www.itcast.cn/
+GET: http://www.vchaoxi.cn/
 GET: http://www.itheima.com/
 102247 bytes received from http://www.baidu.com/.
 166903 bytes received from http://www.itheima.com/.
-162294 bytes received from http://www.itcast.cn/.
+162294 bytes received from http://www.vchaoxi.cn/.
 
 ```
 
-从上能够看到是先发送的获取baidu的相关信息，然后依次是itcast、itheima，但是收到数据的先后顺序不一定与发送顺序相同，这也就体现出了异步，即不确定什么时候会收到数据，顺序不一定
+从上能够看到是先发送的获取baidu的相关信息，然后依次是vchaoxi、itheima，但是收到数据的先后顺序不一定与发送顺序相同，这也就体现出了异步，即不确定什么时候会收到数据，顺序不一定
