@@ -23,6 +23,7 @@ udpSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # 2. 绑定ip和端口
 bindAddr = ('', 7788)  # ip地址和端口号，ip为空表示本机任何一个ip
+udpSocket.bind(bindAddr)
 
 # 3. 等待接收对方发送的数据
 recvData = udpSocket.recvfrom(1024)  # 1024表示本次接收的最大字节数
