@@ -4,32 +4,36 @@
 
 ```python
 
-#coding=utf-8
-from socket import *
+import socket
 
-# 创建socket
-tcpClientSocket = socket(AF_INET, SOCK_STREAM)
 
-# 链接服务器
-serAddr = ('192.168.1.102', 7788)
-tcpClientSocket.connect(serAddr)
+def main():
+    # 1. 创建tcp的套接字
+    tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-while True:
+    # 2. 连接服务器
+    server_ip = input('请输入要连接的服务器IP:')
+    server_port = int(input('请输入要连接的服务器端口:'))
+    server_addr = (server_ip, server_port)
+    tcp_socket.connect(server_addr)
 
-    # 提示用户输入数据
-    sendData = raw_input("send：")
+    while True:
+        # 3. 发送数据/接收数据
+        send_data = input('send: ')
+        if len(send_data) > 0:
+            tcp_socket.send(send_data.encode())
+        else:
+            break
 
-    if len(sendData)>0:
-        tcpClientSocket.send(sendData)
-    else:
-        break
+        recv_data = tcp_socket.recv(1024)
+        print('recv:', recv_data.decode())
 
-    # 接收对方发送过来的数据，最大接收1024个字节
-    recvData = tcpClientSocket.recv(1024)
-    print 'recv:',recvData
+    # 4. 关闭套接字
+    tcp_socket.close()
 
-# 关闭套接字
-tcpClientSocket.close()
+
+if __name__ == '__main__':
+    main()
 
 ```
 
@@ -37,45 +41,48 @@ tcpClientSocket.close()
 
 ```python
 
-#coding=utf-8
-from socket import *
+import socket
 
-# 创建socket
-tcpSerSocket = socket(AF_INET, SOCK_STREAM)
 
-# 绑定本地信息
-address = ('', 7788)
-tcpSerSocket.bind(address)
+def main():
+    # 创建socket
+    tcp_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# 使用socket创建的套接字默认的属性是主动的，使用listen将其变为被动的，这样就可以接收别人的链接了
-tcpSerSocket.listen(5)
+    # 绑定本地信息
+    address = ('', 7788)
+    tcp_server_socket.bind(address)
 
-while True:
-
-    # 如果有新的客户端来链接服务器，那么就产生一个信心的套接字专门为这个客户端服务器
-    # newSocket用来为这个客户端服务
-    # tcpSerSocket就可以省下来专门等待其他新客户端的链接
-    newSocket, clientAddr = tcpSerSocket.accept()
+    # 使用socket创建的套接字默认的属性是主动的，使用listen将其变为被动的，这样就可以接收别人的连接了
+    tcp_server_socket.listen(5)
 
     while True:
+        # 如果有新的客户端来链接服务器，那么就产生一个新的套接字专门为这个客户端服务器
+        # new_socket用来为这个客户端服务
+        # tcp_server_socket就可以省下来专门等待其他新客户端的连接
+        new_socket, client_addr = tcp_server_socket.accept()
 
-        # 接收对方发送过来的数据，最大接收1024个字节
-        recvData = newSocket.recv(1024)
+        while True:
+            # 接收客户端发送过来的数据，最大接收1024个字节
+            recv_data = new_socket.recv(1024)
+            # 如果接收的数据长度为0，意味着客户端已经关闭了连接
+            if len(recv_data) > 0:
+                print('recv:', recv_data.decode())
+            else:
+                break
 
-        # 如果接收的数据的长度为0，则意味着客户端关闭了链接
-        if len(recvData)>0:
-            print 'recv:',recvData
-        else:
-            break
+            # 回送一些数据到客户端
+            send_data = input('send: ')
+            new_socket.send(send_data.encode())
 
-        # 发送一些数据到客户端
-        sendData = raw_input("send:")
-        newSocket.send(sendData)
+        # 关闭为这个客户端服务的套接字，只要关闭了，就意味着为不能再为这个客户端服务了，如果还需要服务，只能再次重新连接
+        new_socket.close()
 
-    # 关闭为这个客户端服务的套接字，只要关闭了，就意味着为不能再为这个客户端服务了，如果还需要服务，只能再次重新连接
-    newSocket.close()
+    # 关闭监听套接字，只要这个套接字关闭了，就意味着整个程序不能再接收任何新的客户端的连接
+    tcp_server_socket.close()
 
-# 关闭监听套接字，只要这个套接字关闭了，就意味着整个程序不能再接收任何新的客户端的连接
-tcpSerSocket.close()
+
+if __name__ == '__main__':
+    main()
 
 ```
+

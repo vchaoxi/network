@@ -70,5 +70,5 @@ tcp_server_socket.close()
 
 ### 网络调试助手：
 
-![](/assets/ass_client.jpg)
+![](/assets/ass_client.png)
 
