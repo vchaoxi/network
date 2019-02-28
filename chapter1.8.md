@@ -14,33 +14,22 @@
 
 ```python
 
-#coding=utf-8
+import socket
 
-from socket import *
+# 1. 创建套接字
+udpSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-#1. 创建套接字
-udpSocket = socket(AF_INET, SOCK_DGRAM)
+# 2. 准备接收方的地址
+#sendAddr = ('192.168.5.65', 8008)
+sendAddr = ('127.0.0.1', 8008)
 
-#2. 准备接收方的地址
-sendAddr = ('192.168.1.103', 8080)
+# 3. 从键盘获取数据
+sendData = input("请输入要发送的数据:")
 
-#3. 从键盘获取数据
-sendData = raw_input("请输入要发送的数据:")
+# 4. 发送数据到指定的电脑上
+udpSocket.sendto(sendData.encode(), sendAddr)
 
-#4. 发送数据到指定的电脑上
-udpSocket.sendto(sendData, sendAddr)
-
-#5. 关闭套接字
+# 5. 关闭套接字
 udpSocket.close()
-
 ```
 
-运行现象：
-
-在Ubuntu中运行脚本：
-
-![](/assets/02-就业班-02-2.png)
-
-在windows中运行“网络调试助手”：
-
-![](/assets/02-就业班-02-3.png)

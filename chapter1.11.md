@@ -16,37 +16,28 @@
 
 ```python
 
-#coding=utf-8
+import socket
 
-from socket import *
+# 1. 创建套接字
+udpSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-#1. 创建套接字
-udpSocket = socket(AF_INET, SOCK_DGRAM)
+# 2. 绑定ip和端口
+bindAddr = ('', 7788)  # ip地址和端口号，ip为空表示本机任何一个ip
 
-#2. 绑定本地的相关信息，如果一个网络程序不绑定，则系统会随机分配
-bindAddr = ('', 7788) # ip地址和端口号，ip一般不用写，表示本机的任何一个ip
-udpSocket.bind(bindAddr)
+# 3. 等待接收对方发送的数据
+recvData = udpSocket.recvfrom(1024)  # 1024表示本次接收的最大字节数
 
-#3. 等待接收对方发送的数据
-recvData = udpSocket.recvfrom(1024) # 1024表示本次接收的最大字节数
+# 4. 显示对方发送的数据
+print(recvData[0].decode())
 
-#4. 显示接收到的数据
-print recvData
-
-#5. 关闭套接字
+# 5. 关闭套接字
 udpSocket.close()
-
 ```
 
-运行结果：
-测试端
-
-![](/assets/Snip20160901_77.png)
-
-![](/assets/Snip20160901_71.png)
 
 ## 3. 总结
 
 - 一个udp网络程序，可以不绑定，此时操作系统会随机进行分配一个端口，如果重新运行次程序端口可能会发生变化
 
 - 一个udp网络程序，也可以绑定信息（ip地址，端口号），如果绑定成功，那么操作系统用这个端口号来进行区别收到的网络数据是否是此进程的
+

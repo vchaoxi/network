@@ -2,7 +2,7 @@
 
 ## 1. 运行现象
 
-测试端
+测试客户端
 
 ![](/assets/Snip20160901_74.png)
 
@@ -43,3 +43,5 @@ while True:
 udpSocket.close()
 
 ```
+
+

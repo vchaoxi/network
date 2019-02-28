@@ -4,37 +4,30 @@
 
 ```python
 
-#coding=utf-8
+import socket
 
-from socket import *
+# 1. 创建套接字
+udpSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-#1. 创建套接字
-udpSocket = socket(AF_INET, SOCK_DGRAM)
+# 2. 准备接收方的地址
+sendAddr = ('127.0.0.1', 8008)
 
-#2. 准备接收方的地址
-sendAddr = ('192.168.1.103', 8080)
+# 3. 从键盘获取数据
+sendData = input("请输入要发送的数据:")
 
-#3. 从键盘获取数据
-sendData = raw_input("请输入要发送的数据:")
+# 4. 发送数据到指定的电脑上
+udpSocket.sendto(sendData.encode(), sendAddr)
 
-#4. 发送数据到指定的电脑上
-udpSocket.sendto(sendData, sendAddr)
+# 5. 等待接收对方发送的数据
+recvData = udpSocket.recvfrom(1024)  # 1024表示本次接收的最大字节数
 
-#5. 等待接收对方发送的数据
-recvData = udpSocket.recvfrom(1024) # 1024表示本次接收的最大字节数
+# 6. 显示对方发送的数据
+# print(recvData)
+print(recvData[0].decode())
 
-#6. 显示对方发送的数据
-print(recvData)
-
-#7. 关闭套接字
+# 7. 关闭套接字
 udpSocket.close()
 
 ```
 
-python脚本：
 
-![](/assets/02-就业班-02-5.png)
-
-网络调试助手截图：
-
-![](/assets/02-就业班-02-6.png)
