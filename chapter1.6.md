@@ -54,7 +54,7 @@ import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-print 'Socket Created'
+print('Socket Created')
 
 ```
 
@@ -66,6 +66,6 @@ import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-print 'Socket Created'
+print('Socket Created')
 
 ```
