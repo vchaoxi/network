@@ -2,7 +2,7 @@
 
 ## 1. 通信过程（pc+switch+router+server）
 
-较为复杂的通信过程如：访问 www.itheima.com
+较为复杂的通信过程如：访问 www.vchaoxi.com
 
 ![](/assets/02-就业班-02-33.jpg)
 

@@ -130,14 +130,14 @@ gevent.joinall([
 
 GET: http://www.baidu.com/
 GET: http://www.vchaoxi.com/
-GET: http://www.itheima.com/
+GET: http://www.sina.com/
 13454 bytes received from http://www.baidu.com/.
-153109 bytes received from http://www.itheima.com/.
+153109 bytes received from http://www.vchaoxi.com/.
 162294 bytes received from http://www.sina.com/.
 
 ```
 
-从上能够看到是先发送的获取baidu的相关信息，然后依次是vchaoxi、itheima，但是收到数据的先后顺序不一定与发送顺序相同，这也就体现出了异步，即不确定什么时候会收到数据，顺序不一定
+从上能够看到是先发送的获取baidu的相关信息，然后依次是vchaoxi、vchaoxi，但是收到数据的先后顺序不一定与发送顺序相同，这也就体现出了异步，即不确定什么时候会收到数据，顺序不一定
 
 
 ### 4. 图片下载器
