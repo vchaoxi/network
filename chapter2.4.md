@@ -1,31 +1,81 @@
-# udp广播
+# 应用：模拟QQ聊天
 
-## 现实生活中的广播
-
-![](/assets/02-就业班-02-11.jpg)
-
-## 网络编程中的广播
+## 客户端参考代码
 
 ```python
 
 #coding=utf-8
+from socket import *
 
-import socket, sys
+# 创建socket
+tcpClientSocket = socket(AF_INET, SOCK_STREAM)
 
-dest = ('<broadcast>', 7788)
-
-# 创建udp套接字
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-# 对这个需要发送广播数据的套接字进行修改设置，否则不能发送广播数据
-s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST,1)
-
-# 以广播的形式发送数据到本网络的所有电脑中
-s.sendto("Hi", dest)
-
-print "等待对方回复（按ctrl+c退出）"
+# 链接服务器
+serAddr = ('192.168.1.102', 7788)
+tcpClientSocket.connect(serAddr)
 
 while True:
-    (buf, address) = s.recvfrom(2048)
-    print "Received from %s: %s" % (address, buf)
-    
+
+    # 提示用户输入数据
+    sendData = raw_input("send：")
+
+    if len(sendData)>0:
+        tcpClientSocket.send(sendData)
+    else:
+        break
+
+    # 接收对方发送过来的数据，最大接收1024个字节
+    recvData = tcpClientSocket.recv(1024)
+    print 'recv:',recvData
+
+# 关闭套接字
+tcpClientSocket.close()
+
+```
+
+## 服务器端参考代码
+
+```python
+
+#coding=utf-8
+from socket import *
+
+# 创建socket
+tcpSerSocket = socket(AF_INET, SOCK_STREAM)
+
+# 绑定本地信息
+address = ('', 7788)
+tcpSerSocket.bind(address)
+
+# 使用socket创建的套接字默认的属性是主动的，使用listen将其变为被动的，这样就可以接收别人的链接了
+tcpSerSocket.listen(5)
+
+while True:
+
+    # 如果有新的客户端来链接服务器，那么就产生一个信心的套接字专门为这个客户端服务器
+    # newSocket用来为这个客户端服务
+    # tcpSerSocket就可以省下来专门等待其他新客户端的链接
+    newSocket, clientAddr = tcpSerSocket.accept()
+
+    while True:
+
+        # 接收对方发送过来的数据，最大接收1024个字节
+        recvData = newSocket.recv(1024)
+
+        # 如果接收的数据的长度为0，则意味着客户端关闭了链接
+        if len(recvData)>0:
+            print 'recv:',recvData
+        else:
+            break
+
+        # 发送一些数据到客户端
+        sendData = raw_input("send:")
+        newSocket.send(sendData)
+
+    # 关闭为这个客户端服务的套接字，只要关闭了，就意味着为不能再为这个客户端服务了，如果还需要服务，只能再次重新连接
+    newSocket.close()
+
+# 关闭监听套接字，只要这个套接字关闭了，就意味着整个程序不能再接收任何新的客户端的连接
+tcpSerSocket.close()
+
 ```

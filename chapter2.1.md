@@ -1,45 +1,19 @@
-# wireshark抓包工具使用
+# tcp相关介绍
 
-## 1. 安装wireshark
+## udp通信模型
 
-![](/assets/Snip20160902_117.png)
+udp通信模型中，在通信开始之前，不需要建立相关的链接，只需要发送数据即可，类似于生活中，"写信""
 
-![](/assets/Snip20160902_118.png)
+![](/assets/02-就业班-02-13.jpg)
 
-![](/assets/Snip20160902_119.png)
+![](/assets/02-就业班-02-1.jpg)
 
-![](/assets/Snip20160902_120.png)
+## tcp通信模型
 
-![](/assets/Snip20160902_121.png)
+udp通信模型中，在通信开始之前，一定要先建立相关的链接，才能发送数据，类似于生活中，"打电话""
 
-![](/assets/Snip20160902_122.png)
+![](/assets/02-就业班-02-14.jpg)
 
-![](/assets/Snip20160902_123.png)
+![](/assets/02-就业班-02-15.jpg)
 
-![](/assets/Snip20160902_124.png)
-
-![](/assets/Snip20160902_125.png)
-
-![](/assets/Snip20160902_126.png)
-
-## 2. wireshark的使用
-
-![](/assets/Snip20160902_128.png)
-
-![](/assets/Snip20160902_129.png)
-
-![](/assets/Snip20160902_130.png)
-
-![](/assets/Snip20160902_132.png)
-
-![](/assets/Snip20160902_134.png)
-
-![](/assets/Snip20160902_135.png)
-
-![](/assets/Snip20160902_136.png)
-
-![](/assets/Snip20160902_137.png)
-
-![](/assets/Snip20160902_138.png)
-
-![](/assets/Snip20160902_139.png)
+![](/assets/02-就业班-02-12.png)
