@@ -103,26 +103,23 @@ g3.join()
 当然，实际代码里，我们不会用gevent.sleep()去切换协程，而是在执行到IO操作时，gevent自动切换，代码如下
 
 ```python
-
-#coding=utf-8
-
 from gevent import monkey; 
 import gevent
-import urllib2
+from urllib.request import urlopen
 
-#有IO才做时需要这一句
+# 有IO才做时需要这一句
 monkey.patch_all()
 
 def myDownLoad(url):
     print('GET: %s' % url)
-    resp = urllib2.urlopen(url)
+    resp = urlopen(url)
     data = resp.read()
     print('%d bytes received from %s.' % (len(data), url))
 
 gevent.joinall([
         gevent.spawn(myDownLoad, 'http://www.baidu.com/'),
         gevent.spawn(myDownLoad, 'http://www.vchaoxi.com/'),
-        gevent.spawn(myDownLoad, 'http://www.itheima.com/'),
+        gevent.spawn(myDownLoad, 'http://www.sina.com/'),
 ])
 
 ```
@@ -134,10 +131,41 @@ gevent.joinall([
 GET: http://www.baidu.com/
 GET: http://www.vchaoxi.com/
 GET: http://www.itheima.com/
-102247 bytes received from http://www.baidu.com/.
-166903 bytes received from http://www.itheima.com/.
-162294 bytes received from http://www.vchaoxi.com/.
+13454 bytes received from http://www.baidu.com/.
+153109 bytes received from http://www.itheima.com/.
+162294 bytes received from http://www.sina.com/.
 
 ```
 
 从上能够看到是先发送的获取baidu的相关信息，然后依次是vchaoxi、itheima，但是收到数据的先后顺序不一定与发送顺序相同，这也就体现出了异步，即不确定什么时候会收到数据，顺序不一定
+
+
+### 4. 图片下载器
+
+```python
+from urllib.request import urlopen
+import gevent
+from gevent import monkey
+
+monkey.patch_all()
+
+
+def downloader(img_url, img_name):
+    req = urlopen(img_url)
+    img_content = req.read()
+
+    with open(img_name, 'wb') as f:
+        f.write(img_content)
+
+
+def main():
+    gevent.joinall([
+        gevent.spawn(downloader, 'http://somesite/1.jpg', '1.jpg'),
+        gevent.spawn(downloader, 'http://somesite/2.jpg', '2.jpg')
+        ])
+
+
+if __name__ == '__main__':
+    main()
+```
+
