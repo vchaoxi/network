@@ -16,7 +16,7 @@
   * [1.11.udp绑定信息](chapter1.11.md)
   * [1.12.udp网络通信过程](chapter1.12.md)
   * [1.13.udp应用：echo服务器](chapter1.13.md)
-  * [1.14.udp应用：单工聊天室](chapter1.14.md)
+  * [1.14.udp应用：单向聊天室](chapter1.14.md)
   * [1.15.udp总结](chapter1.15.md)
   * [1.16.udp综合作业-模拟QQ](chapter1.16.md)
 * [2.TFTP项目、TCP编程](chapter2.md)
